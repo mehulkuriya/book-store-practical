@@ -6,7 +6,7 @@ composer install
 
 set database name in .env file and set configuration accordingly.
 
-execute below command 
+Execute below command 
 
 php artisan migrate 
 php artisan db:seed
