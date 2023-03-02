@@ -65,7 +65,6 @@
                     format="yyyy-MM-dd"
                     class="form-group mb-2"
                 />
-
                 </div>
                 <button type="submit" class="btn btn-primary mt-4 mb-4"> Update Book</button>
 

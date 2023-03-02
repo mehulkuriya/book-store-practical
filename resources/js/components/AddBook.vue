@@ -79,6 +79,7 @@
 
 <script>
 import Datepicker from 'vue3-datepicker';
+import moment from 'moment';
 export default{
     components: {
     Datepicker
@@ -124,7 +125,7 @@ export default{
                 formData.append('author', this.author);
                 formData.append('genre', this.genre);
                 formData.append('isbn', this.isbn);
-                formData.append('publication_date', this.publication_date);
+                 formData.append('publication_date', moment(this.publication_date).format('YYYY-MM-DD'));
                 this.$axios.post('/api/books/add', formData, config)
                 .then(response => {
                     existingObj.strError = "";

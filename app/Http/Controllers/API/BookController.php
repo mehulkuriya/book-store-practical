@@ -7,11 +7,12 @@ use App\Models\Posts;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Http\Requests\BookValidateRequest;
-
+use Auth;
 class BookController extends Controller
 {
     public function index(Request $request)
     {
+        $userinfo = auth('sanctum')->user();
         $arrBooks = [];
         $books = Book::query();
         if($request->search){
@@ -28,6 +29,7 @@ class BookController extends Controller
         if($books->isNotEmpty())
         {
             $arrBooks = $books->toArray(); 
+            $arrBooks["userInfo"] = $userinfo;
         }
         return array_reverse($arrBooks);
     }
@@ -71,9 +73,6 @@ class BookController extends Controller
             if(!empty($books->image)){
                 unlink('img/'.$books->image);
             }
-
-          
-          
         }
         
         $books->update($input);

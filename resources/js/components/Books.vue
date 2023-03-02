@@ -4,7 +4,7 @@
     <div class="card-body">
         <div class="d-flex justify-content-between pb-2 mb-2">
             <h5 class="card-title">All Books Data</h5>
-            <div>
+            <div  v-if="userRoleId == '1'">
                 <button class="btn btn-success" type="button" @click="this.$router.push('/books/add')">New Book</button>
             </div>
         </div>
@@ -23,7 +23,7 @@
                     <th>genre</th>
                     <th>isbn</th>
                     <th class="text-center" width="120">Image</th>
-                    <th class="text-center" width="200">Actions</th>
+                    <th class="text-center" width="200" v-if="userRoleId == '1'">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,7 +38,7 @@
                             <img alt="book-img" width="100" v-bind:src="'/img/' +book.image">
                         </div>
                     </td>
-                    <td class="text-center">
+                    <td class="text-center" v-if="userRoleId == '1'">
                         <router-link :to="{name:'editbook', params: {id:book.id}}" class="btn btn-warning">Edit</router-link>
                         <button class="btn btn-danger" @click="deleteBook(book.id)">Delete</button>
                     </td>
@@ -71,6 +71,7 @@
                 previousPage : '',
                 nextPage : '',
                 search : '',
+                userRoleId : '',
             }
         },
         created() {
@@ -102,7 +103,10 @@
                 let requestApi = '/api/books?page='+page+'&search='+this.search;
                 this.$axios.get(requestApi)
                 .then(response => {
+                    
                     this.books = response.data.data;
+                    this.userRoleId = response.data.userInfo.role_id;
+                    console.log("role info ",this.userRoleId);
                     this.paginationLinks = response.data.links;
                     if(response.data.current_page != 1){
                         this.previousPage = response.data.current_page - 1 ;
