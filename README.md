@@ -1493,7 +1493,7 @@ Sample response :
 
 Type : POST
 
-paramters : 
+params : 
             name: rem
             description: Ullam eos doloribus culpa esse vel delectus.
             author: Joe Nolan
